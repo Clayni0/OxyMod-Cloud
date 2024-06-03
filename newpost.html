@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новый пост</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: url('https://graph.org/file/320933c5b99ad48d73790.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: blue;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            color: white;
+        }
+        .form-container {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 2em;
+            border-radius: 10px;
+            width: 300px;
+        }
+        .form-container input,
+        .form-container select,
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+        }
+        .form-container button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .form-container button:hover {
+            background-color: #0056b3;
+        }
+        .form-container label {
+            display: block;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h2>Новый пост</h2>
+            <form onsubmit="handleNewPost(event)">
+                <label for="post-type">Тип</label>
+                <select id="post-type" required>
+                    <option value="Texture Pack">Texture Pack</option>
+                    <option value="Mod">Mod</option>
+                    <option value="Map">Map</option>
+                </select>
+                <label for="post-title">Название</label>
+                <input type="text" id="post-title" placeholder="Название" required>
+                <label for="post-preview">Превью</label>
+                <input type="file" id="post-preview" required>
+                <label for="post-file">Файл</label>
+                <input type="file" id="post-file" required>
+                <button type="submit">Отправить</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        function handleNewPost(event) {
+            event.preventDefault();
+            const postType = document.getElementById('post-type').value;
+            const postTitle = document.getElementById('post-title').value;
+            const postPreview = document.getElementById('post-preview').files[0];
+            const postFile = document.getElementById('post-file').files[0];
+
+            const readerPreview = new FileReader();
+            readerPreview.onload = function(event) {
+                const previewBase64 = event.target.result;
+
+                const readerFile = new FileReader();
+                readerFile.onload = function(event) {
+                    const fileBase64 = event.target.result;
+
+                    const post = {
+                        type: postType,
+                        title: postTitle,
+                        preview: previewBase64,
+                        file: fileBase64,
+                    };
+
+                    // Сохранение поста (на самом деле, нужно отправлять данные на сервер)
+                    const posts = JSON.parse(localStorage.getItem('posts')) || [];
+                    posts.push(post);
+                    localStorage.setItem('posts', JSON.stringify(posts));
+
+                    // Переадресация на страницу профиля после добавления поста
+                    window.location.href = 'profile.html';
+                };
+                readerFile.readAsDataURL(postFile);
+            };
+            readerPreview.readAsDataURL(postPreview);
+        }
+    </script>
+</body>
+</html>
