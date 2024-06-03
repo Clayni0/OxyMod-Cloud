@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: url('https://graph.org/file/320933c5b99ad48d73790.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: blue;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            color: white;
+        }
+        .profile-container {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 2em;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .profile-container img {
+            border-radius: 50%;
+            width: 300px;
+            height: 300px;
+        }
+        .profile-container .home-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+        .profile-container .home-button:hover {
+            background-color: #0056b3;
+        }
+        .profile-info {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .publish-container {
+            margin-top: 20px;
+            width: 100%;
+            background-color: #00bfff;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .publish-container .publish-button {
+            background-color: #808080;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .publish-container .publish-button:hover {
+            background-color: #606060;
+        }
+        .posts {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .post {
+            background-color: white;
+            padding: 10px;
+            margin: 10
+            margin: 10px;
+            width: 30%;
+            box-sizing: border-box;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .post img {
+            width: 100%;
+            height: auto;
+        }
+        .post .post-info {
+            padding: 10px;
+            text-align: center;
+            background-color: #00bfff;
+            color: blue;
+        }
+        .post .post-info .post-type {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="profile-container">
+            <img id="avatar" src="" alt="Avatar">
+            <div class="profile-info">
+                <h2 id="username"></h2>
+                <p id="email"></p>
+            </div>
+            <button class="home-button" onclick="window.location.href='home.html'">На главную</button>
+        </div>
+        <div class="publish-container">
+            <button class="publish-button" onclick="window.location.href='newpost.html'">Опубликовать</button>
+        </div>
+        <div class="posts" id="posts"></div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Загрузка данных профиля
+            const user = JSON.parse(localStorage.getItem('registeredUser'));
+            if (user) {
+                document.getElementById('username').textContent = user.username;
+                document.getElementById('email').textContent = user.email;
+            }
+
+            // Загрузка аватарки
+            const avatar = localStorage.getItem('avatar');
+            if (avatar) {
+                document.getElementById('avatar').src = avatar;
+            }
+
+            // Загрузка постов
+            const posts = JSON.parse(localStorage.getItem('posts')) || [];
+            const postsContainer = document.getElementById('posts');
+            posts.forEach(post => {
+                const postElement = document.createElement('div');
+                postElement.classList.add('post');
+                
+                const img = document.createElement('img');
+                img.src = post.preview;
+                postElement.appendChild(img);
+
+                const postInfo = document.createElement('div');
+                postInfo.classList.add('post-info');
+                
+                const postType = document.createElement('div');
+                postType.classList.add('post-type');
+                postType.textContent = post.type;
+                postInfo.appendChild(postType);
+                
+                const postTitle = document.createElement('div');
+                postTitle.textContent = post.title;
+                postInfo.appendChild(postTitle);
+                
+                postElement.appendChild(postInfo);
+                postsContainer.appendChild(postElement);
+            });
+        });
+    </script>
+</body>
+</html>

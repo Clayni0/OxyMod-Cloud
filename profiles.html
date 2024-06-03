@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profiles</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: url('https://graph.org/file/320933c5b99ad48d73790.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: blue;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            color: white;
+        }
+        .login-form {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 2em;
+            border-radius: 10px;
+        }
+        .login-form input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+        }
+        .login-form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .login-form button:hover {
+            background-color: #0056b3;
+        }
+        .profiles-list {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 2em;
+            border-radius: 10px;
+            margin-top: 20px;
+            width: 300px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-form">
+            <h2>Введите пароль для доступа к профилям</h2>
+            <input type="password" id="accessPassword" placeholder="Пароль">
+            <button onclick="checkPassword()">Войти</button>
+        </div>
+        <div class="profiles-list" id="profilesList" style="display: none;">
+            <h2>Зарегистрированные пользователи</h2>
+            <ul id="profiles"></ul>
+        </div>
+    </div>
+    <script>
+        const validPassword = "S1m1rch1k";
+
+        function checkPassword() {
+            const enteredPassword = document.getElementById('accessPassword').value;
+            if (enteredPassword === validPassword) {
+                document.querySelector('.login-form').style.display = 'none';
+                document.getElementById('profilesList').style.display = 'block';
+                loadProfiles();
+            } else {
+                alert("Неверный пароль!");
+            }
+        }
+
+        function loadProfiles() {
+            const registeredUser = JSON.parse(localStorage.getItem('registeredUser'));
+            if (registeredUser) {
+                const profileItem = document.createElement('li');
+                profileItem.textContent = `Ник: ${registeredUser.username}, Почта: ${registeredUser.email}`;
+                document.getElementById('profiles').appendChild(profileItem);
+            }
+        }
+    </script>
+</body>
+</html>
