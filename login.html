@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: url('https://graph.org/file/320933c5b99ad48d73790.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: blue;
+        }
+        .navbar {
+            display: flex;
+            justify-content: flex-end;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 1em;
+        }
+        .navbar .home-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .navbar .home-button:hover {
+            background-color: #0056b3;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+            flex-direction: column;
+            color: white;
+        }
+        .form-container {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 2em;
+            border-radius: 10px;
+        }
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+        }
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .form-container button:hover {
+            background-color: #0056b3;
+        }
+        .form-container .login-link {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            color: white;
+            text-decoration: none;
+        }
+        .form-container .login-link:hover {
+            text-decoration: underline;
+        }
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1em;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .alert {
+            display: none;
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <button class="home-button" onclick="window.location.href='home.html'">На главную</button>
+    </div>
+    <div class="container">
+        <div class="form-container">
+            <h2>Вход</h2>
+            <form onsubmit="handleLogin(event)">
+                <input type="text" id="username" placeholder="Имя пользователя" required>
+                <input type="password" id="password" placeholder="Пароль" required>
+                <button type="submit">Войти</button>
+            </form>
+            <div class="alert" id="alert">Неправильный пароль!</div>
+            <a href="register.html" class="login-link">Создать аккаунт</a>
+        </div>
+    </div>
+    <div class="footer">
+        Для отгрузки Texture Packs, Mods, Maps пишите на: <a href="mailto:OxyCloudMod@yandex.ru" style="color: white; text-decoration: none;">OxyCloudMod@yandex.ru</a>
+    </div>
+    <script>
+        function handleLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            const registered
+            const registeredUser = JSON.parse(localStorage.getItem('registeredUser'));
+
+            if (registeredUser && registeredUser.username === username && registeredUser.password === password) {
+                window.location.href = 'home.html';
+            } else {
+                document.getElementById('alert').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
