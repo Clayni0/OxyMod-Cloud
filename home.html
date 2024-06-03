@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Texture Packs</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: url('https://graph.org/file/320933c5b99ad48d73790.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: blue;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 1em;
+            position: relative;
+        }
+        .navbar .login-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .navbar .login-button:hover {
+            background-color: #0056b3;
+        }
+        .navbar .menu-dots {
+            font-size: 24px;
+            cursor: pointer;
+            color: white;
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 10px;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            transform: translateY(-10px);
+        }
+        .dropdown-menu.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .dropdown-menu a {
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .dropdown-menu a:hover {
+            background-color: #0056b3;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .scroll-container {
+            display: flex;
+            overflow-x: auto;
+            width: 90%;
+            padding: 10px;
+            gap: 15px; /* Отступ между элементами 15px */
+            cursor: grab;
+        }
+        .scroll-container:active {
+            cursor: grabbing;
+        }
+        .item {
+            position: relative;
+            text-align: center;
+            flex-shrink: 0;
+            width: 267px;
+            background-color: rgba(0, 191, 255, 0.2); /* Голубой фон */
+            border-radius: 10px;
+            overflow: hidden;
+            transition: background-color 0.3s;
+        }
+        .item:hover {
+            background-color: rgba(0, 191, 255, 0.3); /* При наведении немного темнее */
+        }
+        .image-container {
+            position: relative;
+            margin-bottom: 5px; /* Минимальный отступ снизу для текста */
+        }
+        .image-container img {
+            width: 100%;
+            height: auto;
+            object-fit: contain; /* Сохраняет изображение полностью видимым */
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .image-container img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 10px #000;
+        }
+        .description {
+            color: white;
+            font-size: 0.9em;
+            background-color: rgba(0, 0, 0, 0.7); /* Полупрозрачный черный фон для описания */
+            padding: 5px; /* Уменьшенные отступы внутри */
+            border-radius: 0 0 10px 10px;
+            display: flex;
+            align-items: center;
+        }
+        .description img.avatar {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+        .description p {
+            margin: 2px 0; /* Минимальный отступ между строками */
+        }
+        @keyframes crazyAnimation {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(3deg); }
+            50% { transform: rotate(0deg); }
+            75% { transform: rotate(-3deg); }
+            100% { transform: rotate(0deg); }
+        }
+        .crazy {
+            animation: crazyAnimation 8s infinite;
+        }
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1em;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <button class="login-button" id="authButton" onclick="handleAuthClick()">Войти</button>
+        <div class="menu-dots" onclick="toggleDropdownMenu()">:</div>
+        <div class="dropdown-menu" id="dropdownMenu">
+            <a href="https://t.me/your_channel" target="_blank">Telegram канал</a>
+            <a href="https://t.me/your_group" target="_blank">Telegram группа</a>
+        </div>
+    </div>
+    <div class="container">
+        <!-- Добавленное изображение PNG сверху -->
+        <img src="src/OxyMod.png" alt="Header Image" style="width: 100%; height: auto; object-fit: cover; margin-bottom: 0px;">
+
+        <div class="scroll-container" onmousedown="event.preventDefault()">
+            <div class="item">
+                <div class="image-container">
+                    <img src="https://graph.org/file/e9276b0fd82eb5075b878.jpg" onclick="window.location.href='downloader.html'" class="crazy">
+                </div>
+                <div class="description">
+                    <img src="src/avatar.jpg" alt="Avatar" class="avatar">
+                    <div>
+                        <p>Clayni</p>
+                        <p>Texture Pack</p>
+                        <p>Core 16x [Red]</p>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="image-container">
+                    <img src="https://graph.org/file/187937d44adb7ed175cc0.jpg" onclick="window.location.href='https://www.example.com/link2'" class="crazy">
+                </div>
+                <div class="description">
+                    <img src="src/avatar.jpg" alt="Avatar" class="avatar">
+                    <div>
+                        <p>Clayni</p>
+                        <p>Texture Pack</p>
+                        <p>Core 16x [Purple]</p>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="image-container">
+                    <img src="https://graph.org/file/d19f00b69b04af5212d87.jpg" onclick="window.location.href='https://www.example.com/link3'" class="crazy">
+                </div>
+                <div class="description">
+                    <img src="src/avatar.jpg" alt="Avatar" class="avatar">
+                    <div>
+                        <p>Clayni</p>
+                        <p>Texture Pack</p>
+                        <p>DECKER 16x [Blue]</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Добавьте больше изображений по необходимости -->
+        </div>
+    </div>
+    <div class="footer">
+        Для отгрузки Texture Packs, Mods, Maps пишите на: <a href="mailto:OxyCloudMod@yandex.ru" style="color: white; text-decoration: none;">OxyCloudMod@yandex.ru</a>
+    </div>
+    <script>
+        // Скрипт для прокрутки контейнера с изображениями
+        const scrollContainer = document.querySelector('.scroll-container');
+
+        scrollContainer.addEventListener('wheel', (evt) => {
+            evt.preventDefault();
+            scrollContainer.scrollLeft += evt.deltaY;
+        });
+
+        // Обработка состояния аутентификации
+        document.addEventListener('DOMContentLoaded', () => {
+            const loggedInUser = localStorage.getItem('loggedInUser');
+            const authButton = document.getElementById('authButton');
+            
+            if (loggedInUser) {
+                authButton.textContent = 'Выйти';
+                authButton.onclick = () => {
+                    localStorage.removeItem('loggedInUser');
+                    window.location.href = 'login.html';
+                };
+            } else {
+                authButton.textContent = 'Войти';
+                authButton.onclick = () => {
+                    window.location.href = 'login.html';
+                };
+            }
+        });
+
+        // Функция для переключения видимости выпадающего меню
+        function toggleDropdownMenu() {
+            const dropdownMenu = document.getElementById('dropdownMenu');
+            dropdownMenu.classList.toggle('show');
+        }
+
+        function handleAuthClick() {
+            const loggedInUser = localStorage.getItem('loggedInUser');
+            if (loggedInUser) {
+                // Действия при выходе
+                localStorage.removeItem('loggedInUser');
+                window.location.href = 'login.html';
+            } else {
+                // Действия при входе
+                window.location.href = 'login.html';
+            }
+        }
+
+        // Закрытие выпадающего меню при клике вне его
+        document.addEventListener('click', (event) => {
+            const dropdownMenu = document.getElementById('dropdownMenu');
+            if (!dropdownMenu.contains(event.target) && !event.target.matches('.menu-dots')) {
+                dropdownMenu.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>
