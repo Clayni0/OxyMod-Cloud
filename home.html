@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Texture Packs</title>
+    <title>OxyMod</title>
     <style>
         body {
             margin: 0;
@@ -21,7 +21,8 @@
             padding: 1em;
             position: relative;
         }
-        .navbar .login-button {
+        .navbar .login-button,
+        .navbar .profile-button {
             background-color: #007bff;
             color: white;
             border: none;
@@ -29,8 +30,10 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
+            margin-left: 10px;
         }
-        .navbar .login-button:hover {
+        .navbar .login-button:hover,
+        .navbar .profile-button:hover {
             background-color: #0056b3;
         }
         .navbar .menu-dots {
@@ -60,12 +63,17 @@
             background-color: #007bff;
             color: white;
             text-decoration: none;
-            display: block;
+            display: flex;
+            align-items: center;
             margin: 10px 0;
             padding: 10px;
-            text-align: center;
             border-radius: 5px;
             transition: background-color 0.3s;
+        }
+        .dropdown-menu a img {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
         }
         .dropdown-menu a:hover {
             background-color: #0056b3;
@@ -83,7 +91,7 @@
             overflow-x: auto;
             width: 90%;
             padding: 10px;
-            gap: 15px; /* Отступ между элементами 15px */
+            gap: 15px;
             cursor: grab;
         }
         .scroll-container:active {
@@ -94,22 +102,22 @@
             text-align: center;
             flex-shrink: 0;
             width: 267px;
-            background-color: rgba(0, 191, 255, 0.2); /* Голубой фон */
+            background-color: rgba(0, 191, 255, 0.2);
             border-radius: 10px;
             overflow: hidden;
             transition: background-color 0.3s;
         }
         .item:hover {
-            background-color: rgba(0, 191, 255, 0.3); /* При наведении немного темнее */
+            background-color: rgba(0, 191, 255, 0.3);
         }
         .image-container {
             position: relative;
-            margin-bottom: 5px; /* Минимальный отступ снизу для текста */
+            margin-bottom: 5px;
         }
         .image-container img {
             width: 100%;
             height: auto;
-            object-fit: contain; /* Сохраняет изображение полностью видимым */
+            object-fit: contain;
             cursor: pointer;
             transition: transform 0.3s, box-shadow 0.3s;
         }
@@ -120,8 +128,8 @@
         .description {
             color: white;
             font-size: 0.9em;
-            background-color: rgba(0, 0, 0, 0.7); /* Полупрозрачный черный фон для описания */
-            padding: 5px; /* Уменьшенные отступы внутри */
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 5px;
             border-radius: 0 0 10px 10px;
             display: flex;
             align-items: center;
@@ -133,7 +141,22 @@
             margin-right: 10px;
         }
         .description p {
-            margin: 2px 0; /* Минимальный отступ между строками */
+            margin: 2px 0;
+        }
+        .button-link {
+            display: inline-block;
+        }
+        .button-image {
+            width: 80px; /* Задайте необходимый размер кнопки */
+            height: 43px;
+            transition: transform 5.0s;
+            position: absolute; /* Делаем кнопку абсолютно позиционированной */
+            top: 172px; /* Начальное положение сверху */
+            left: 176px; /* Начальное положение слева */
+        }
+        .button-image:hover {
+            transform: scale(1.0);
+            content: url('https://graph.org/file/0197d91df205e66e987a6.jpg'); /* Меняем изображение при наведении */
         }
         @keyframes crazyAnimation {
             0% { transform: rotate(0deg); }
@@ -154,33 +177,108 @@
             padding: 10px;
             border-radius: 10px;
         }
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            left: 0; 
+            top: 0; 
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.4); 
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; 
+            padding: 20px; 
+            border: 1px solid #888;
+            width: 80%; 
+            max-width: 500px;
+            border-radius: 10px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+        }
+        .auth-form input {
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .auth-form button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .auth-form button:hover {
+            background-color: #0056b3;
+        }
+        .navbar .menu-dots {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 8px;
+            border-radius: 7px;
+            cursor: pointer;
+            transition: background-color 0.9s;
+            margin-left: 5px;
+        }
+        .navbar .login-button:hover,
+        .navbar .profile-button:hover {
+            background-color: #0056b3;
     </style>
 </head>
 <body>
     <div class="navbar">
-        <button class="login-button" id="authButton" onclick="handleAuthClick()">Войти</button>
+        <button class="login-button" id="authButton" onclick="openModal()">Войти</button>
+        <button class="profile-button" id="profileButton" onclick="window.location.href='profile.html'" style="display: none;">Профиль</button>
         <div class="menu-dots" onclick="toggleDropdownMenu()">:</div>
         <div class="dropdown-menu" id="dropdownMenu">
-            <a href="https://t.me/your_channel" target="_blank">Telegram канал</a>
-            <a href="https://t.me/your_group" target="_blank">Telegram группа</a>
+            <a href="https://t.me/OxyMod_official" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram Logo">
+                Telegram канал
+            </a>
+            <a href="https://t.me/OxyMod_group" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram Logo">
+                Telegram группа
+            </a>
         </div>
     </div>
-    <div class="container">
-        <!-- Добавленное изображение PNG сверху -->
+    <div class="auth-form">
         <img src="OxyMod.jpg" alt="Header Image" style="width: 100%; height: auto; object-fit: cover; margin-bottom: 0px;">
-
         <div class="scroll-container" onmousedown="event.preventDefault()">
             <div class="item">
                 <div class="image-container">
                     <img src="https://graph.org/file/e9276b0fd82eb5075b878.jpg" onclick="window.location.href='downloader.html'" class="crazy">
                 </div>
                 <div class="description">
-                    <img src="avatar.jpg" alt="Avatar" class="avatar">
+                    <img src="https://graph.org/file/0a0634d2613432450c901.jpg" alt="Avatar" class="avatar">
                     <div>
                         <p>Clayni</p>
                         <p>Texture Pack</p>
                         <p>Core 16x [Red]</p>
                     </div>
+                    <a href="https://www.example.com/target_link" class="button-link">
+                        <img src="https://graph.org/file/142e85a03b2c7d9f5b4d0.jpg" class="button-image">
+                    </a>
                 </div>
             </div>
             <div class="item">
@@ -188,35 +286,68 @@
                     <img src="https://graph.org/file/187937d44adb7ed175cc0.jpg" onclick="window.location.href='https://www.example.com/link2'" class="crazy">
                 </div>
                 <div class="description">
-                    <img src="avatar.jpg" alt="Avatar" class="avatar">
-                    <div>
-                        <p>Clayni</p>
-                        <p>Texture Pack</p>
-                        <p>Core 16x [Purple]</p>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="image-container">
-                    <img src="https://graph.org/file/d19f00b69b04af5212d87.jpg" onclick="window.location.href='https://www.example.com/link3'" class="crazy">
-                </div>
-                <div class="description">
-                    <img src="avatar.jpg" alt="Avatar" class="avatar">
+                    <img src="https://graph.org/file/0a0634d2613432450c901.jpg" alt="Avatar" class="avatar">
                     <div>
                         <p>Clayni</p>
                         <p>Texture Pack</p>
                         <p>DECKER 16x [Blue]</p>
                     </div>
+                    <a href="https://www.example.com/target_link" class="button-link">
+                        <img src="https://graph.org/file/142e85a03b2c7d9f5b4d0.jpg" class="button-image">
+                    </a>
                 </div>
             </div>
-            <!-- Добавьте больше изображений по необходимости -->
+            <div class="item">
+                <div class="image-container">
+                    <img src="https://graph.org/file/76d7325ee73bc48ee559d.jpg" onclick="window.location.href='https://www.example.com/link3'" class="crazy">
+                </div>
+                <div class="description">
+                    <img src="https://graph.org/file/0a0634d2613432450c901.jpg" alt="Avatar" class="avatar">
+                    <div>
+                        <p>Clayni</p>
+                        <p>Texture Pack</p>
+                        <p>DECKER 16x [Blue]</p>
+                    </div>
+                    <a href="https://www.example.com/target_link" class="button-link">
+                        <img src="https://graph.org/file/142e85a03b2c7d9f5b4d0.jpg" class="button-image">
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
     <div class="footer">
         Для отгрузки Texture Packs, Mods, Maps пишите на: <a href="mailto:OxyCloudMod@yandex.ru" style="color: white; text-decoration: none;">OxyCloudMod@yandex.ru</a>
     </div>
+
+    <!-- Modal for authentication -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="authForms">
+                <div id="loginForm">
+                    <h2>Вход</h2>
+                    <form class="auth-form" onsubmit="login(event)">
+                        <input type="email" id="loginEmail" placeholder="Email" required>
+                        <input type="password" id="loginPassword" placeholder="Пароль" required>
+                        <button type="submit">Войти</button>
+                    </form>
+                    <p>Нет аккаунта? <a href="#" onclick="showRegisterForm()">Зарегистрироваться</a></p>
+                </div>
+                <div id="registerForm" style="display: none;">
+                    <h2>Регистрация</h2>
+                    <form class="auth-form" onsubmit="register(event)">
+                        <input type="text" id="registerUsername" placeholder="Имя пользователя" required>
+                        <input type="email" id="registerEmail" placeholder="Email" required>
+                        <input type="password" id="registerPassword" placeholder="Пароль" required>
+                        <button type="submit">Зарегистрироваться</button>
+                    </form>
+                    <p>Уже есть аккаунт? <a href="#" onclick="showLoginForm()">Войти</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Скрипт для прокрутки контейнера с изображениями
         const scrollContainer = document.querySelector('.scroll-container');
 
         scrollContainer.addEventListener('wheel', (evt) => {
@@ -224,50 +355,96 @@
             scrollContainer.scrollLeft += evt.deltaY;
         });
 
-        // Обработка состояния аутентификации
         document.addEventListener('DOMContentLoaded', () => {
-            const loggedInUser = localStorage.getItem('loggedInUser');
-            const authButton = document.getElementById('authButton');
-            
-            if (loggedInUser) {
-                authButton.textContent = 'Выйти';
-                authButton.onclick = () => {
-                    localStorage.removeItem('loggedInUser');
-                    window.location.href = 'login.html';
-                };
-            } else {
-                authButton.textContent = 'Войти';
-                authButton.onclick = () => {
-                    window.location.href = 'login.html';
-                };
-            }
+            checkAuthStatus();
         });
 
-        // Функция для переключения видимости выпадающего меню
         function toggleDropdownMenu() {
             const dropdownMenu = document.getElementById('dropdownMenu');
             dropdownMenu.classList.toggle('show');
         }
 
-        function handleAuthClick() {
-            const loggedInUser = localStorage.getItem('loggedInUser');
-            if (loggedInUser) {
-                // Действия при выходе
-                localStorage.removeItem('loggedInUser');
-                window.location.href = 'login.html';
+        function openModal() {
+            document.getElementById('authModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('authModal').style.display = 'none';
+        }
+
+        function showRegisterForm() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'block';
+        }
+
+        function showLoginForm() {
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('registerForm').style.display = 'none';
+        }
+
+        function checkAuthStatus() {
+            const authButton = document.getElementById('authButton');
+            const profileButton = document.getElementById('profileButton');
+            const user = JSON.parse(localStorage.getItem('loggedInUser'));
+
+            if (user) {
+                authButton.style.display = 'none';
+                profileButton.style.display = 'inline-block';
             } else {
-                // Действия при входе
-                window.location.href = 'login.html';
+                authButton.style.display = 'inline-block';
+                profileButton.style.display = 'none';
             }
         }
 
-        // Закрытие выпадающего меню при клике вне его
+        function login(event) {
+            event.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const user = users.find(user => user.email === email && user.password === password);
+
+            if (user) {
+                localStorage.setItem('loggedInUser', JSON.stringify(user));
+                closeModal();
+                checkAuthStatus();
+            } else {
+                alert('Ошибка входа: неверный email или пароль.');
+            }
+        }
+
+        function register(event) {
+            event.preventDefault();
+            const username = document.getElementById('registerUsername').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+
+            if (users.find(user => user.email === email)) {
+                alert('Ошибка регистрации: такой email уже зарегистрирован.');
+                return;
+            }
+
+            const newUser = { username, email, password };
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+
+            showLoginForm();
+            alert('Регистрация прошла успешно. Пожалуйста, войдите.');
+        }
+
         document.addEventListener('click', (event) => {
             const dropdownMenu = document.getElementById('dropdownMenu');
             if (!dropdownMenu.contains(event.target) && !event.target.matches('.menu-dots')) {
                 dropdownMenu.classList.remove('show');
             }
+
+            const modal = document.getElementById('authModal');
+            if (event.target == modal) {
+                closeModal();
+            }
         });
     </script>
 </body>
-</html>
+    </html>
