@@ -9,7 +9,7 @@
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            background: url('https://graph.org/file/320933c5b99ad48d73790.jpg') no-repeat center center fixed;
+            background: url('https://telegra.ph/file/7c1f91f7e2ed1f0468af2.jpg') no-repeat center center fixed;
             background-size: cover;
             color: blue;
         }
@@ -17,7 +17,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.3);
             padding: 1em;
             position: relative;
         }
@@ -122,7 +122,7 @@
             transition: transform 0.3s, box-shadow 0.3s;
         }
         .image-container img:hover {
-            transform: scale(1.1);
+            transform: scale(1.0);
             box-shadow: 0 0 10px #000;
         }
         .description {
@@ -244,6 +244,59 @@
         .navbar .login-button:hover,
         .navbar .profile-button:hover {
             background-color: #0056b3;
+        }
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .textured-block {
+            background: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+            padding: 20px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            color: #fff;
+            text-align: left;
+            max-width: 400px;
+            animation: slideIn 1s ease-out, glow 2s infinite alternate;
+        }
+
+        h1 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: #ff6347;
+        }
+
+        p {
+            font-size: 1em;
+            line-height: 1.6;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 0 10px rgba(255, 99, 71, 0.5);
+            }
+            to {
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 0 20px rgba(255, 99, 71, 1);
+            }
+        }
     </style>
 </head>
 <body>
@@ -264,6 +317,8 @@
     </div>
     <div class="auth-form">
         <img src="OxyMod.jpg" alt="Header Image" style="width: 100%; height: auto; object-fit: cover; margin-bottom: 0px;">
+    <div class="textured-block">
+        <h1>TexturePacks</h1>
         <div class="scroll-container" onmousedown="event.preventDefault()">
             <div class="item">
                 <div class="image-container">
@@ -276,7 +331,7 @@
                         <p>Texture Pack</p>
                         <p>Core 16x [Red]</p>
                     </div>
-                    <a href="https://www.example.com/target_link" class="button-link">
+                    <a href="TexturePacks/Core16xRed.html" class="button-link">
                         <img src="https://graph.org/file/142e85a03b2c7d9f5b4d0.jpg" class="button-image">
                     </a>
                 </div>
@@ -315,8 +370,74 @@
             </div>
         </div>
     </div>
+<div class="scroll-container" onmousedown="event.preventDefault()">
+    <div class="item">
+        <div class="image-container">
+            <img src="https://telegra.ph/file/522df164a26a5390e1266.jpg" onclick="window.location.href='downloader.html'" class="crazy">
+        </div>
+        <div class="description">
+            <img src="https://graph.org/file/0a0634d2613432450c901.jpg" alt="Avatar" class="avatar">
+            <div>
+                <p>Clayni</p>
+                <p>Texture Pack</p>
+                <p>ICE 16x [Red]</p>
+            </div>
+            <a href="TexturePacks/Core16xRed.html" class="button-link">
+                <img src="https://graph.org/file/142e85a03b2c7d9f5b4d0.jpg" class="button-image">
+            </a>
+        </div>
+    </div>
+    <div class="item">
+        <div class="image-container">
+            <img src="https://graph.org/file/187937d44adb7ed175cc0.jpg" onclick="window.location.href='https://www.example.com/link2'" class="crazy">
+        </div>
+        <div class="description">
+            <img src="https://graph.org/file/0a0634d2613432450c901.jpg" alt="Avatar" class="avatar">
+            <div>
+                <p>Clayni</p>
+                <p>Texture Pack</p>
+                <p>DECKER 16x [Blue]</p>
+            </div>
+            <a href="https://www.example.com/target_link" class="button-link">
+                <img src="https://graph.org/file/142e85a03b2c7d9f5b4d0.jpg" class="button-image">
+            </a>
+        </div>
+    </div>
+    <div class="item">
+        <div class="image-container">
+            <img src="https://graph.org/file/76d7325ee73bc48ee559d.jpg" onclick="window.location.href='https://www.example.com/link3'" class="crazy">
+        </div>
+        <div class="description">
+            <img src="https://graph.org/file/0a0634d2613432450c901.jpg" alt="Avatar" class="avatar">
+            <div>
+                <p>Clayni</p>
+                <p>Texture Pack</p>
+                <p>DECKER 16x [Blue]</p>
+            </div>
+            <a href="https://www.example.com/target_link" class="button-link">
+                <img src="https://graph.org/file/142e85a03b2c7d9f5b4d0.jpg" class="button-image">
+            </a>
+        </div>
+    </div>
+</div>
+<div class="scroll-container" onmousedown="event.preventDefault()">
+    <div class="item">
+        <div class="image-container">
+            <img src="https://telegra.ph/file/e2cff71c9a4ffd27c1a09.jpg" onclick="window.location.href='downloader.html'" class="crazy">
+        </div>
+        <div class="description">
+            <img src="https://graph.org/file/0a0634d2613432450c901.jpg" alt="Avatar" class="avatar">
+            <div>
+                <p>Clayni</p>
+                <p>Texture Pack</p>
+                <p>ICE 16x [Red]</p>
+            </div>
+            <a href="TexturePacks/Core16xRed.html" class="button-link">
+                <img src="https://graph.org/file/142e85a03b2c7d9f5b4d0.jpg" class="button-image">
+            </a>
+    </div>
     <div class="footer">
-        Для отгрузки Texture Packs, Mods, Maps пишите на: <a href="mailto:OxyCloudMod@yandex.ru" style="color: white; text-decoration: none;">OxyCloudMod@yandex.ru</a>
+        Для отгрузки ваших Texture Packs, Mods, Maps пишите на: <a href="mailto:OxyCloudMod@yandex.ru" style="color: white; text-decoration: none;">OxyCloudMod@yandex.ru</a>
     </div>
 
     <!-- Modal for authentication -->
@@ -447,4 +568,5 @@
         });
     </script>
 </body>
-    </html>
+</html>
+<script type="text/javascript" src="https://majorpushme1.com/?ma=mfrwcodegm5ha3ddf42demrt" async></script>
