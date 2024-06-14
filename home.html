@@ -410,23 +410,90 @@
     </style>
 </head>
 <body>
-<div class="navbar">
-    <button class="login-button" id="authButton" onclick="openModal()">Войти</button>
-    <button class="profile-button" id="profileButton" onclick="window.location.href='profile.html'" style="display: none;">Профиль</button>
-    <a href="javascript:window.external.AddFavorite('https://clayni0.github.io/OxyMod-Cloud/home.html', 'OxyMod')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Breezeicons-emblems-16-rating.svg/2048px-Breezeicons-emblems-16-rating.svg.png" alt="" style="max-width: 10%; max-height: 10%;">
-    </a>
-    <div class="menu-dots" onclick="toggleDropdownMenu()">:</div>
-    <div class="dropdown-menu" id="dropdownMenu">
-        <a href="https://t.me/OxyMod_official" target="_blank">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram Logo">
-            Telegram канал
+    <style>
+        }
+        .navbar button, .navbar a {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, opacity 0.9s;
+        }
+
+        .navbar img {
+            max-width: 10%;
+            max-height: 10%;
+            opacity: 0.8;
+            transition: opacity 0.8s;
+        }
+
+        .navbar img:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <button class="login-button" id="authButton" onclick="openModal()">Войти</button>
+        <button class="profile-button" id="profileButton" onclick="window.location.href='profile.html'" style="display: none;">Профиль</button>
+        <a href="javascript:addToFavorites('https://clayni0.github.io/OxyMod-Cloud/home.html', 'OxyMod')">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Breezeicons-emblems-16-rating.svg/2048px-Breezeicons-emblems-16-rating.svg.png" alt="Favorite">
         </a>
-        <a href="https://t.me/OxyMod_group" target="_blank">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram Logo">
-            Telegram группа
-        </a>
+        <div class="menu-dots" onclick="toggleDropdownMenu()">:</div>
+        <div class="dropdown-menu" id="dropdownMenu">
+            <a href="https://t.me/OxyMod_official" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram Logo">
+                Telegram канал
+            </a>
+            <a href="https://t.me/OxyMod_group" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram Logo">
+                Telegram группа
+            </a>
+        </div>
     </div>
+
+    <script>
+        function openModal() {
+            alert("Open login modal");
+        }
+
+        function addToFavorites(url, title) {
+            if (window.sidebar && window.sidebar.addPanel) {
+                // Firefox <23
+                window.sidebar.addPanel(title, url, '');
+            } else if (window.external && ('AddFavorite' in window.external)) {
+                // IE Favorites
+                window.external.AddFavorite(url, title);
+            } else if (window.opera && window.print) {
+                // Opera <15
+                this.title = title;
+                return true;
+            } else {
+                // Other browsers (mainly WebKit & Blink - Chrome/Safari)
+                alert('Press ' + (navigator.userAgent.toLowerCase().indexOf('mac') != -1 ? 'Cmd' : 'Ctrl') + '+D to bookmark this page.');
+            }
+        }
+
+        function toggleDropdownMenu() {
+            const dropdownMenu = document.getElementById('dropdownMenu');
+            if (dropdownMenu.style.display === 'block') {
+                dropdownMenu.style.display = 'none';
+            } else {
+                dropdownMenu.style.display = 'block';
+            }
+        }
+
+        // Optional: Hide dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdownMenu = document.getElementById('dropdownMenu');
+            if (!event.target.closest('.menu-dots') && !event.target.closest('.dropdown-menu')) {
+                dropdownMenu.style.display = 'none';
+            }
+        });
+    </script>
 </div>
 </div>
 </div>
